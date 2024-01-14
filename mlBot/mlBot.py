@@ -38,7 +38,6 @@ def generate_text(model, word_to_index, seed_text, max_length):
                 break
 
     generated_text = [index_to_word[index] for index in seed_indices]
-
     return ' '.join(generated_text)
 
 def load_model():

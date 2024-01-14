@@ -28,7 +28,6 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    print(f"{message.author.name}: {message.content}")
     if message.author == bot.user:
         return
     await bot.process_commands(message)
@@ -39,7 +38,7 @@ async def generate(ctx, *, arg):
     global model
     global word_to_index
     response = generate_text(model=model, word_to_index=word_to_index, seed_text=arg,max_length=14)
-    await ctx.send(response)
+    await ctx.send(response[len(arg):])
 
 @bot.command()
 async def imitate(ctx, *, arg):
