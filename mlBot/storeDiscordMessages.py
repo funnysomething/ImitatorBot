@@ -1,3 +1,9 @@
+# INSTRUCTIONS FOR CREATING DATABASE OF MESSSAGES:
+# 1. Run this script
+# 2. In the channel that you want training data taken from, send !get_messages
+# 3. Wait for the scipt to create the database (it will print out "Database Created")
+# 4. Stop the script
+
 import sqlite3
 import discord
 from discord.ext import commands
@@ -37,6 +43,8 @@ def storeMessages(messages):
     # Commit changes and close connection
     connection.commit()
     connection.close()
+    
+    print("Database Created")
 
 @bot.event
 async def on_ready():
