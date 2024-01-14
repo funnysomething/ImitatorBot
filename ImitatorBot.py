@@ -26,12 +26,6 @@ person = "Barack Obama"
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
 
-@bot.event
-async def on_message(message):
-    if message.author == bot.user:
-        return
-    await bot.process_commands(message)
-
 @bot.command()
 async def generate(ctx, *, arg):
     print("Generating response")
