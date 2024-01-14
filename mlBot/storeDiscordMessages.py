@@ -1,8 +1,12 @@
 import sqlite3
 import discord
 from discord.ext import commands
+import configparser
 
-bot_token = 'MTE5MzcwNTczMTMyOTkwMDYwNA.GXhE0y._D7d_M_pXy08rQKBzZXrAN7c-ABULRubNZzXVQ'
+#Gets bot_token from config.ini file
+config = configparser.ConfigParser()
+config.read('config.ini')
+bot_token = config['Credentials']['DISCORD_BOT_TOKEN']
 
 #Notifies discord API that bot wants messages and message content from server
 intents = discord.Intents.all()  # Enable all intents
@@ -49,8 +53,13 @@ async def on_message(message):
 async def get_messages(ctx):
     # Get the channel object
     channel = ctx.channel
-    
-    # Retrieve all messages from the channel
-    storeMessages(channel.history(limit=None))
+
+    # Retrieve all messages
+    all_messages = await channel.history(limit=None).flatten()
+
+    # Filter text messages based on type
+    text_messages = [message for message in all_messages if message.type == discord.MessageType.default]
+
+    storeMessages(text_messages)
 
 bot.run(bot_token)
